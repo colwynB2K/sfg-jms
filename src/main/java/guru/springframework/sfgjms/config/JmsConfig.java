@@ -15,7 +15,7 @@ public class JmsConfig {
     public MessageConverter messageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter(); // Spring will provide an objectMapper
         converter.setTargetType(MessageType.TEXT);
-        converter.setTypeIdPropertyName("_type");                                           // In this property we will specify the class name as what Spring needs to deserialize the (JSON) message payload
+        converter.setTypeIdPropertyName("_type");                                           // In this property Spring for Apache ActiveMQ will specify the class name as what Spring needs to deserialize the (JSON) message payload
 
         return converter;
     }

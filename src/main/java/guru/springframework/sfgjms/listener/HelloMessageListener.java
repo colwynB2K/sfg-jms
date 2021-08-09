@@ -11,6 +11,7 @@ import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;                                                   // Be careful to import the correct Message class!!!
 import java.util.UUID;
@@ -35,13 +36,16 @@ public class HelloMessageListener {
 
     @JmsListener(destination = JmsConfig.MY_SEND_RECEIVE_QUEUE_NAME)
     public void listenForHello(@Payload HelloWorldMessage helloWorldMessage,
-                       @Headers MessageHeaders headers, Message message) throws JMSException {
+                       @Headers MessageHeaders headers, Message jmsMessage,
+                               org.springframework.messaging.Message springMessage) throws JMSException {
 
         HelloWorldMessage worldMessage = HelloWorldMessage.builder()
                 .id(UUID.randomUUID())
                 .message("World!")
                 .build();
 
-        jmsTemplate.convertAndSend(message.getJMSReplyTo(), worldMessage); // getJMSReplyTo() will make JMS generate an 'internal' temporary queue for you and set a reference to it in the replyTo property of the reply message. You listen for an original hello message and in response you reply with a World message to that temporary queue. This reply is automagically captured when sending the original message and you can assign it to a Message variable 'receivedMessage'.
+        // Spring flavor of convertAndSend which has slightly different API jmsTemplate.convertAndSend((Destination) springMessage.getHeaders().get("jms_replyTo"), "got it!");
+
+        jmsTemplate.convertAndSend(jmsMessage.getJMSReplyTo(), worldMessage); // getJMSReplyTo() will make JMS generate an 'internal' temporary queue for you and set a reference to it in the replyTo property of the reply message. You listen for an original hello message and in response you reply with a World message to that temporary queue. This reply is automagically captured when sending the original message and you can assign it to a Message variable 'receivedMessage'.
     }
 }

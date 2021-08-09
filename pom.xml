@@ -29,7 +29,8 @@
 			<artifactId>spring-boot-starter-artemis</artifactId>
 		</dependency>
 
-		<!-- Add Support for embedded Apache Active MQ JMS server -->
+<!-- Comment out ActiveMQ server dependencies as we will be running it outside of the Spring Boot application now, otherwise Spring Boot will autoconfigure an ActiveMQ instance for us
+		&lt;!&ndash; Add Support for embedded Apache Active MQ JMS server &ndash;&gt;
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>artemis-server</artifactId>
@@ -37,7 +38,7 @@
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>artemis-jms-server</artifactId>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

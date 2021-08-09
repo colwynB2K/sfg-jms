@@ -1,8 +1,5 @@
 package guru.springframework.sfgjms;
 
-import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
-import org.apache.activemq.artemis.core.server.ActiveMQServer;
-import org.apache.activemq.artemis.core.server.ActiveMQServers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SfgJmsApplication {
 
 	public static void main(String[] args) throws Exception {
+/* Comment out ActiveMQ server instantiation as we will be running it outside of the Spring Boot application now
 		ActiveMQServer server = ActiveMQServers.newActiveMQServer(new ConfigurationImpl()
 		.setPersistenceEnabled(false)
 		.setJournalDirectory("target/data/journal") 			// Set local build directory
@@ -17,6 +15,7 @@ public class SfgJmsApplication {
 //		.addAcceptorConfiguration("invm", "vm://0"));	// Make the server accessible in the VM (from ActiveMQ server documentation). But this triggered an ugly error that 'Acceptor with id 0 already registered'
 
 		server.start();											// Run ActiveMQ server within Spring Boot together with our client application (normally you would run this on a separate server, but is just for learning purposes)
+*/
 
 		SpringApplication.run(SfgJmsApplication.class, args);
 	}
